@@ -1,0 +1,33 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# temp files
+*~
+
+# Translations
+*.mo
+
+# Mr Developer
+.mr.developer.cfg
+.pydevproject
+.project
+.settings/
+.idea/
+.DS_Store
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+target/
+
+# ignore devvalues
+values.dev.yaml
+values.*.test.yaml
+values.*.test.json
+values.*.test.sh
+
+# Chart dependencies
+**/charts/*.tgz
