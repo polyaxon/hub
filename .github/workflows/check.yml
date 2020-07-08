@@ -1,9 +1,9 @@
-name: Helm Charts
+name: Test Component
 
 on: [push]
 
 jobs:
-  deploy:
+  check:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -20,11 +20,11 @@ jobs:
           pip3 install -U polyaxon
 
           COMPONENTS=${{ matrix.component }}/*
+          echo "checking components: $COMPONENTS"
 
-          for f in $COMPONENTS
-          do
-          if [[ "$f" != *\.* ]]
-          then
-            polyaxon check -f ${{ matrix.component }}/$f
+          for f in $COMPONENTS; do
+          if [[ -r "$f" ]]; then
+            echo "checking component: $f"
+            polyaxon check -f $f --spec-only
           fi
           done
