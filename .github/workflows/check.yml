@@ -25,6 +25,6 @@ jobs:
           for f in $COMPONENTS; do
           if [[ -r "$f" ]]; then
             echo "checking component: $f"
-            polyaxon check -f $f --spec-only
+            polyaxon check -f $f --lint
           fi
           done
