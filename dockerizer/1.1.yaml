@@ -25,13 +25,13 @@ run:
   kind: job
   connections: ["{{ destination.connection }}"]
   container:
-    image: polyaxon/polyaxon-init:1.1.3
+    image: polyaxon/polyaxon-init:1.1.4
     command: ["polyaxon", "docker", "build-and-push"]
     args: [
       "-c",
       "{{ context or globals.artifacts_path }}",
       "-d",
-      "{{ (connections[destination.connection].url + '/' + destination.name) if connections[destination.connection].url else destination.name }}",
+      "{{ (connections[destination.connection].url + '/' + destination.name) if (destination.connection in connections and connections[destination.connection].url) else destination.name }}",
       "{{ nocache }}"
     ]
     env:
