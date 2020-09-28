@@ -26,14 +26,14 @@ outputs:
 
 run:
   kind: job
-  connections: ["{{ params.destination.connection }}"]
+  connections: ["{{ destination.connection }}"]
   container:
     image: gcr.io/kaniko-project/executor:latest
     args: [
       "-c",
       "{{ context or globals.artifacts_path }}",
       "-d",
-      "{{ (connections[params.destination.connection].url + '/' + destination) if (params.destination.connection in connections and connections[params.destination.connection].url) else destination }}",
+      "{{ destination.name }}",
       "{{ cache }}",
       "--cache-ttl={{ cache_ttl }}"
     ]
