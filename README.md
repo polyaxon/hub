@@ -6,7 +6,7 @@
 [![GitHub](https://img.shields.io/badge/roadmap-github-blue?logo=github)](https://github.com/polyaxon/polyaxon/milestones)
 
 
-> N.B. This is a read-only repo, you can create issues or PRs in the [main repo](https://github.com/polyaxon/polyaxon/issues). 
+> N.B. TPlease create issues in the [main repo](https://github.com/polyaxon/polyaxon/issues). 
 
 # Polyaxon-hub
 

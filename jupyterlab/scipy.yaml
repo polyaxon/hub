@@ -1,13 +1,12 @@
 version: 1.1
 kind: component
 name: notebook
-tags: [notebook]
 run:
   kind: service
   ports: [8888]
   container:
-    image: "jupyter/pyspark-notebook"
-    command: ["jupyter", "notebook"]
+    image: "jupyter/scipy-notebook"
+    command: ["jupyter", "lab"]
     args: [
       "--no-browser",
       "--ip=0.0.0.0",
