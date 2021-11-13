@@ -42,7 +42,7 @@ setup(
     maintainer_email="contact@polyaxon.com",
     author="Polyaxon, Inc.",
     author_email="contact@polyaxon.com",
-    url="https://github.com/polyaxon/polyaxon-hub",
+    url="https://github.com/polyaxon/hub",
     license="Apache 2.0",
     platforms="any",
     packages=find_packages(exclude=["*.tests", "*.tests.*", "tests.*", "tests"]),
