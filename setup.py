@@ -72,7 +72,7 @@ setup(name='polyaxon-deploy',
       ],
       tests_require=[
           "pytest",
-          "httpretty==0.8.14",
+          "httpretty==1.1.4",
           "fake-factory==0.7.2",
           "mock",
       ],
