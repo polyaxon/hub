@@ -14,11 +14,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-NAME = "polyaxon-deploy"
-VERSION = "1.0.0-rc0"
-SCHEMA_VERSION = 1.1
-DESC = "Polyaxon deployment and serving tools: streams, sandbox, ML-API, and spaces."
-URL = "https://github.com/polyaxon/polyaxon"
-AUTHOR = "Polyaxon, Inc."
-EMAIL = "contact@polyaxon.com"
-LICENSE = "Apache 2.0"
+
+from starlette.testclient import TestClient
+
+from polyaxon_deploy.app.main import app
+
+
+def get_streams_client():
+    with TestClient(app) as client:
+        return client

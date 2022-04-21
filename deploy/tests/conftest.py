@@ -14,11 +14,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-NAME = "polyaxon-deploy"
-VERSION = "1.0.0-rc0"
-SCHEMA_VERSION = 1.1
-DESC = "Polyaxon deployment and serving tools: streams, sandbox, ML-API, and spaces."
-URL = "https://github.com/polyaxon/polyaxon"
-AUTHOR = "Polyaxon, Inc."
-EMAIL = "contact@polyaxon.com"
-LICENSE = "Apache 2.0"
+
+import os
+import tempfile
+
+
+def pytest_configure():
+    os.environ["POLYAXON_NO_CONFIG"] = "true"
+    os.environ["POLYAXON_CONTEXT_ROOT"] = tempfile.mkdtemp()
+    os.environ["POLYAXON_OFFLINE_ROOT"] = tempfile.mkdtemp()
+    os.environ["POLYAXON_ARTIFACTS_ROOT"] = tempfile.mkdtemp()

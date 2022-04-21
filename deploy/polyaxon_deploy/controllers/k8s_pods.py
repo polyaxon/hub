@@ -13,12 +13,20 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+from polyaxon.k8s.async_manager import AsyncK8SManager
 
-NAME = "polyaxon-deploy"
-VERSION = "1.0.0-rc0"
-SCHEMA_VERSION = 1.1
-DESC = "Polyaxon deployment and serving tools: streams, sandbox, ML-API, and spaces."
-URL = "https://github.com/polyaxon/polyaxon"
-AUTHOR = "Polyaxon, Inc."
-EMAIL = "contact@polyaxon.com"
-LICENSE = "Apache 2.0"
+
+async def get_pods(
+    k8s_manager: AsyncK8SManager,
+    run_uuid: str,
+):
+    await k8s_manager.setup()
+    pods = await k8s_manager.list_pods(
+        label_selector=k8s_manager.get_managed_by_polyaxon(run_uuid)
+    )
+    pods_list = {}
+    for pod in pods or []:
+        pods_list[
+            pod.metadata.name
+        ] = k8s_manager.api_client.sanitize_for_serialization(pod)
+    return pods_list

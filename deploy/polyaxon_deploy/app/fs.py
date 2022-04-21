@@ -13,12 +13,26 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+from polyaxon.fs.fs import get_default_fs
+from polyaxon.fs.types import FSSystem
 
-NAME = "polyaxon-deploy"
-VERSION = "1.0.0-rc0"
-SCHEMA_VERSION = 1.1
-DESC = "Polyaxon deployment and serving tools: streams, sandbox, ML-API, and spaces."
-URL = "https://github.com/polyaxon/polyaxon"
-AUTHOR = "Polyaxon, Inc."
-EMAIL = "contact@polyaxon.com"
-LICENSE = "Apache 2.0"
+
+class AppFS:
+    FS = None
+
+    @classmethod
+    async def set_fs(cls) -> FSSystem:
+        fs = await get_default_fs()
+        cls.FS = fs
+        return cls.FS
+
+    @classmethod
+    async def close_fs(cls):
+        if cls.FS and hasattr(cls.FS, "close_session"):
+            cls.FS.close_session(cls.FS.loop, cls.FS.session)
+
+    @classmethod
+    async def get_fs(cls) -> FSSystem:
+        if not cls.FS:
+            return await cls.set_fs()
+        return cls.FS

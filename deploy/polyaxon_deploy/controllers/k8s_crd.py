@@ -14,11 +14,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-NAME = "polyaxon-deploy"
-VERSION = "1.0.0-rc0"
-SCHEMA_VERSION = 1.1
-DESC = "Polyaxon deployment and serving tools: streams, sandbox, ML-API, and spaces."
-URL = "https://github.com/polyaxon/polyaxon"
-AUTHOR = "Polyaxon, Inc."
-EMAIL = "contact@polyaxon.com"
-LICENSE = "Apache 2.0"
+from polyaxon.k8s.async_manager import AsyncK8SManager
+from polyaxon.k8s.custom_resources import operation as op_crd
+
+
+async def get_k8s_operation(k8s_manager: AsyncK8SManager, resource_name: str):
+    return await k8s_manager.get_custom_object(
+        name=resource_name,
+        group=op_crd.GROUP,
+        version=op_crd.API_VERSION,
+        plural=op_crd.PLURAL,
+    )

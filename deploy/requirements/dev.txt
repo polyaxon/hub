@@ -1,1 +1,2 @@
-kubernetes
+numpy<=1.23
+pandas

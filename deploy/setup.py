@@ -1,4 +1,19 @@
-#!/usr/bin/env python
+#!/usr/bin/python
+#
+# Copyright 2018-2022 Polyaxon, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 import os
 import sys
 
@@ -30,19 +45,18 @@ with open(os.path.join("./polyaxon_deploy/pkg.py"), encoding="utf8") as f:
     pkg = {}
     exec(f.read(), pkg)
 
+
 with open("requirements/requirements.txt") as requirements_file:
     requirements = requirements_file.read().splitlines()
-
-with open("requirements/prod.txt") as requirements_file:
-    prod_requirements = requirements_file.read().splitlines()
-
-if not os.environ.get("USE_LOCAL_PACKAGES"):
-    requirements += prod_requirements
 
 with open("requirements/dev.txt") as requirements_file:
     dev_requirements = requirements_file.read().splitlines()
 
+with open("requirements/fs.txt") as requirements_file:
+    fs_requirements = requirements_file.read().splitlines()
+
 extra = {
+    "fs": fs_requirements,
     "dev": dev_requirements,
 }
 
@@ -86,8 +100,12 @@ setup(
         "plotly",
         "visualization",
         "analytics",
+        "hyperopt",
+        "scikit-learn",
+        "optimization",
+        "bayesian-optimization",
     ],
-    install_requires=requirements,
+    install_requires=[requirements],
     extras_require=extra,
     python_requires=">=3.5",
     classifiers=[
@@ -102,5 +120,6 @@ setup(
         "Intended Audience :: Science/Research",
         "Topic :: Scientific/Engineering :: Artificial Intelligence",
     ],
+    tests_require=["pytest"],
     cmdclass={"test": PyTest},
 )
