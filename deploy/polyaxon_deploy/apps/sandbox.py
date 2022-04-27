@@ -42,8 +42,6 @@ routes = (
     + base_sandbox_routes
 )
 
-settings.set_sandbox_config()
-
 app = Starlette(
     debug=settings.CLIENT_CONFIG.debug,
     routes=routes,

@@ -19,15 +19,15 @@ from starlette.requests import Request
 from starlette.responses import Response
 from starlette.routing import Route
 
+from polyaxon import settings
 from polyaxon.api import API_V1_LOCATION
-from polyaxon.containers import contexts as container_contexts
 from polyaxon_deploy.endpoints.base import ConfigResponse
 
 
 async def get_run_details(request: Request) -> Response:
     run_uuid = request.path_params["run_uuid"]
     offline_path = os.path.join(
-        container_contexts.CONTEXT_OFFLINE_ROOT, run_uuid, "run_data.json"
+        settings.SANDBOX_CONFIG.store_root, run_uuid, "run_data.json"
     )
 
     with open(offline_path, "r") as config_file:
@@ -38,7 +38,7 @@ async def get_run_details(request: Request) -> Response:
 async def get_run_lineage(request: Request) -> Response:
     run_uuid = request.path_params["run_uuid"]
     offline_path = os.path.join(
-        container_contexts.CONTEXT_OFFLINE_ROOT, run_uuid, "run_data.json"
+        settings.SANDBOX_CONFIG.store_root, run_uuid, "run_data.json"
     )
 
     with open(offline_path, "r") as config_file:
@@ -49,7 +49,7 @@ async def get_run_lineage(request: Request) -> Response:
 async def get_run_artifact_lineage(request: Request) -> Response:
     run_uuid = request.path_params["run_uuid"]
     offline_path = os.path.join(
-        container_contexts.CONTEXT_OFFLINE_ROOT, run_uuid, "lineages.json"
+        settings.SANDBOX_CONFIG.store_root, run_uuid, "lineages.json"
     )
 
     with open(offline_path, "r") as config_file:

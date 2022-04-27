@@ -13,7 +13,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+import os
 
 import click
 
@@ -39,8 +39,17 @@ import click
     default=False,
     help="To enable workers per core.",
 )
-def sandbox(host: str, port: int, workers: int, per_core: bool):
+@click.option(
+    "--path",
+    help="The service host.",
+)
+def sandbox(host: str, port: int, workers: int, per_core: bool, path: str):
     """Start sandbox service."""
+    from polyaxon.env_vars.keys import POLYAXON_KEYS_SANDBOX_ROOT, POLYAXON_KEYS_SERVICE
     from polyaxon_deploy.runners.sandbox import start
+
+    os.environ[POLYAXON_KEYS_SERVICE] = "sandbox"
+    if path:
+        os.environ[POLYAXON_KEYS_SANDBOX_ROOT] = path
 
     start(host=host, port=port, workers=workers, per_core=per_core)

@@ -48,6 +48,6 @@ def start_app(
         host=host,
         port=port,
         access_log=False,
-        log_level=log_level,
+        log_level=log_level.lower(),
         workers=workers,
     )

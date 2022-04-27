@@ -41,6 +41,6 @@ import click
 )
 def streams(host: str, port: int, workers: int, per_core: bool):
     """Start streams service."""
-    from polyaxon_deploy.runners.sandbox import start
+    from polyaxon_deploy.runners.streams import start
 
     start(host=host, port=port, workers=workers, per_core=per_core)
