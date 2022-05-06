@@ -22,7 +22,7 @@ from starlette.routing import Route
 
 from polyaxon import settings
 from polyaxon.api import API_V1_LOCATION
-from polyaxon.containers import contexts as container_contexts
+from polyaxon.contexts import paths as ctx_paths
 from polyaxon_deploy.endpoints.base import ConfigResponse
 
 
@@ -31,7 +31,7 @@ async def get_run_details(request: Request) -> Response:
     data_path = os.path.join(
         settings.SANDBOX_CONFIG.store_root,
         run_uuid,
-        container_contexts.CONTEXT_LOCAL_RUN,
+        ctx_paths.CONTEXT_LOCAL_RUN,
     )
     if not os.path.exists(data_path) or not os.path.isdir(data_path):
         return Response(status_code=status.HTTP_404_NOT_FOUND)
@@ -46,7 +46,7 @@ async def get_run_artifact_lineage(request: Request) -> Response:
     data_path = os.path.join(
         settings.SANDBOX_CONFIG.store_root,
         run_uuid,
-        container_contexts.CONTEXT_LOCAL_LINEAGES,
+        ctx_paths.CONTEXT_LOCAL_LINEAGES,
     )
     if not os.path.exists(data_path) or not os.path.isdir(data_path):
         return Response(status_code=status.HTTP_404_NOT_FOUND)
